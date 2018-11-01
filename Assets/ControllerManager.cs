@@ -16,6 +16,7 @@ public class ControllerManager : MonoBehaviour {
     private bool leftFollower = false;
     private bool rightFollower = false;
     private List<GameObject> points = new List<GameObject>();
+    private Vector3 updatedCenter;
     private GameObject follower = null;
     private Vector3 followerCenter = Vector3.zero;
     private float followerScale = 0f;
@@ -46,7 +47,7 @@ public class ControllerManager : MonoBehaviour {
         scale *= 2;
         scale /= Mathf.Sqrt(2);
         //scale box
-        gameobject.transform.localScale = Vector3.one * scale;
+        gameobject.transform.localScale = gameobject.transform.localScale * scale;
         return scale;
     }
 
@@ -61,8 +62,8 @@ public class ControllerManager : MonoBehaviour {
             return;
         }
         //set dimensions
-        this.follower = Instantiate(this.Followers[this.followerIndex], this.followerCenter, Quaternion.identity);
-        this.follower.transform.localScale = Vector3.one * this.followerScale;
+        this.follower = Instantiate(this.Followers[this.followerIndex], this.updatedCenter, Quaternion.identity);
+        this.follower.transform.localScale = this.follower.transform.localScale * this.followerScale;
         this.follower.transform.position = new Vector3(this.follower.transform.position.x, this.follower.transform.position.y - this.followerScale / 2, this.follower.transform.position.z);
 
         this.updateFollowerMaterial();
@@ -72,6 +73,7 @@ public class ControllerManager : MonoBehaviour {
     }
 
     private void cycleFollower() {
+        this.updatedCenter = new Vector3(this.follower.transform.position.x, this.follower.transform.position.y + this.followerScale / 2, this.follower.transform.position.z);
         this.followerIndex++;
         this.followerIndex %= this.Followers.Count;
         this.updateFollower();
@@ -164,7 +166,7 @@ public class ControllerManager : MonoBehaviour {
 
     private void updateFollowerMaterial() {
         if (this.follower != null) {
-            this.follower.GetComponent<Renderer>().material = this.Materials[this.materialIndex];
+            this.follower.GetComponentsInChildren<Renderer>()[0].material = this.Materials[this.materialIndex];
         }
         else {
             Debug.Log("Bad State");
