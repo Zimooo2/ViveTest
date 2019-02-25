@@ -11,6 +11,8 @@ public class ControllerManager : MonoBehaviour {
     public GameObject RightController;
     public List<Material> Materials;
 
+    public GameObject RoomMarker;
+
     private int materialIndex = 0;
     private int followerIndex = 0;
     private bool leftFollower = false;
@@ -179,6 +181,7 @@ public class ControllerManager : MonoBehaviour {
         this.updateFollowerMaterial();
     }
 
+
     private void Update() {
         // get trigger
         if (ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger) && !this.leftFollower && !this.rightFollower) {
@@ -212,5 +215,95 @@ public class ControllerManager : MonoBehaviour {
         /*if ((this.leftFollower || this.rightFollower) && (ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger) || ViveInput.GetPressDown(HandRole.LeftHand, ControllerButton.Trigger))) {
             this.follower.transform.Rotate(Vector3.up);
         }*/
+
+        if (Input.GetKeyDown("q")) {
+            this.updatedCenter = new Vector3(this.follower.transform.position.x, this.follower.transform.position.y + this.followerScale / 2, this.follower.transform.position.z);
+            this.followerIndex = 0;
+            this.updateFollower();
+        }
+        if (Input.GetKeyDown("a")) {
+            this.updatedCenter = new Vector3(this.follower.transform.position.x, this.follower.transform.position.y + this.followerScale / 2, this.follower.transform.position.z);
+            this.followerIndex = 1;
+            this.updateFollower();
+        }
+        if (Input.GetKeyDown("z")) {
+            this.follower.SetActive(!this.follower.activeSelf);
+        }
+        if (Input.GetKeyDown("w")) {
+            this.materialIndex = 0;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("s")) {
+            this.materialIndex = 1;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("x")) {
+            this.materialIndex = 2;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("e")) {
+            this.materialIndex = 3;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("d")) {
+            this.materialIndex = 4;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("c")) {
+            this.materialIndex = 5;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("r")) {
+            this.materialIndex = 6;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("f")) {
+            this.materialIndex = 7;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("v")) {
+            this.materialIndex = 8;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("t")) {
+            this.materialIndex = 9;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("g")) {
+            this.materialIndex = 10;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("b")) {
+            this.materialIndex = 11;
+            this.updateFollowerMaterial();
+        }
+        if (Input.GetKeyDown("i")) {
+            this.updatedCenter = new Vector3(this.updatedCenter.x, this.updatedCenter.y, this.updatedCenter.z+.01f);
+            this.updateFollower();
+        }
+        if (Input.GetKeyDown("k")) {
+            this.updatedCenter = new Vector3(this.updatedCenter.x, this.updatedCenter.y, this.updatedCenter.z-.01f);
+            this.updateFollower();
+        }
+        if (Input.GetKeyDown("j")) {
+            this.updatedCenter = new Vector3(this.updatedCenter.x+.01f, this.updatedCenter.y, this.updatedCenter.z);
+            this.updateFollower();
+        }
+        if (Input.GetKeyDown("l")) {
+            this.updatedCenter = new Vector3(this.updatedCenter.x-.01f, this.updatedCenter.y, this.updatedCenter.z);
+            this.updateFollower();
+        }
+        if (Input.GetKeyDown("u")) {
+            this.updatedCenter = new Vector3(this.updatedCenter.x, this.updatedCenter.y+.01f, this.updatedCenter.z);
+            this.updateFollower();
+        }
+        if (Input.GetKeyDown("o")) {
+            this.updatedCenter = new Vector3(this.updatedCenter.x, this.updatedCenter.y-.01f, this.updatedCenter.z);
+            this.updateFollower();
+        }
+
+        if (Input.GetKeyDown("m")) {
+            this.RoomMarker.SetActive(!this.RoomMarker.activeSelf);
+        }
     }
 }
