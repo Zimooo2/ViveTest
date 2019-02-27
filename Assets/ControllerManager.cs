@@ -21,6 +21,7 @@ public class ControllerManager : MonoBehaviour {
     private Vector3 updatedCenter;
     private GameObject follower = null;
     private Vector3 followerCenter = Vector3.zero;
+    private Vector3 updatedRot = Vector3.zero;
     private float followerScale = 0f;
 
     private Vector3 calculateCenter(List<GameObject> points) {
@@ -67,6 +68,7 @@ public class ControllerManager : MonoBehaviour {
         this.follower = Instantiate(this.Followers[this.followerIndex], this.updatedCenter, Quaternion.identity);
         this.follower.transform.localScale = this.follower.transform.localScale * this.followerScale;
         this.follower.transform.position = new Vector3(this.follower.transform.position.x, this.follower.transform.position.y - this.followerScale / 2, this.follower.transform.position.z);
+        this.follower.transform.eulerAngles = this.updatedRot;
 
         this.updateFollowerMaterial();
 
@@ -301,7 +303,14 @@ public class ControllerManager : MonoBehaviour {
             this.updatedCenter = new Vector3(this.updatedCenter.x, this.updatedCenter.y-.01f, this.updatedCenter.z);
             this.updateFollower();
         }
-
+        if (Input.GetKeyDown(",")) {
+            this.updatedRot = new Vector3(this.updatedCenter.x, this.updatedCenter.y + 1f, this.updatedCenter.z);
+            this.updateFollower();
+        }
+        if (Input.GetKeyDown(".")) {
+            this.updatedRot = new Vector3(this.updatedCenter.x, this.updatedCenter.y - 1f, this.updatedCenter.z);
+            this.updateFollower();
+        }
         if (Input.GetKeyDown("m")) {
             this.RoomMarker.SetActive(!this.RoomMarker.activeSelf);
         }
