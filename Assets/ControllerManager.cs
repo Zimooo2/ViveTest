@@ -304,11 +304,19 @@ public class ControllerManager : MonoBehaviour {
             this.updateFollower();
         }
         if (Input.GetKeyDown(",")) {
-            this.updatedRot = new Vector3(this.updatedCenter.x, this.updatedCenter.y + 1f, this.updatedCenter.z);
+            this.updatedRot = new Vector3(this.updatedRot.x, this.updatedRot.y + 1f, this.updatedRot.z);
             this.updateFollower();
         }
         if (Input.GetKeyDown(".")) {
-            this.updatedRot = new Vector3(this.updatedCenter.x, this.updatedCenter.y - 1f, this.updatedCenter.z);
+            this.updatedRot = new Vector3(this.updatedRot.x, this.updatedRot.y - 1f, this.updatedRot.z);
+            this.updateFollower();
+        }
+        if (Input.GetKeyDown("[")) {
+            this.followerScale -= .02;
+            this.updateFollower();
+        }
+        if (Input.GetKeyDown("]")) {
+            this.followerScale += .02;
             this.updateFollower();
         }
         if (Input.GetKeyDown("m")) {
